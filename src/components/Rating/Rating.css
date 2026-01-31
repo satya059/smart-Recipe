@@ -1,0 +1,75 @@
+.rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.star-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.star-button:not(.readonly):hover {
+    transform: scale(1.15);
+}
+
+.star-button.filled {
+    color: var(--accent);
+}
+
+.star-button.readonly {
+    cursor: default;
+}
+
+.star-button svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Size variants */
+.rating-small .star-button {
+    width: 16px;
+    height: 16px;
+}
+
+.rating-medium .star-button {
+    width: 24px;
+    height: 24px;
+}
+
+.rating-large .star-button {
+    width: 32px;
+    height: 32px;
+}
+
+.rating-text {
+    margin-left: var(--space-sm);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Animation when rating */
+@keyframes starPop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.3);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.star-button.filled:not(.readonly) {
+    animation: starPop 0.3s ease;
+}

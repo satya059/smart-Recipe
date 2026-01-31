@@ -82,7 +82,7 @@ const IngredientInput = ({
                 {/* Search suggestions dropdown */}
                 {filteredIngredients.length > 0 && (
                     <div className="search-dropdown">
-                        {filteredIngredients.map((ingredient, index) => (
+                        {filteredIngredients.map((ingredient) => (
                             <button
                                 key={ingredient}
                                 className="search-item"

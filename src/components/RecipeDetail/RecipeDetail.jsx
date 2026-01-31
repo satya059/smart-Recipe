@@ -1,5 +1,5 @@
 // Recipe detail modal component
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { adjustServingSize, getSubstitutionSuggestions } from '../../services/recipeMatching';
 import { getRecipeRating, setRecipeRating } from '../../services/storage';
 import Rating from '../Rating/Rating';
@@ -7,19 +7,19 @@ import './RecipeDetail.css';
 
 const RecipeDetail = ({ recipe, onClose, isFavorite, onToggleFavorite }) => {
     const [servings, setServings] = useState(recipe.servings);
-    const [adjustedRecipe, setAdjustedRecipe] = useState(recipe);
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState(() => getRecipeRating(recipe.id));
     const [activeTab, setActiveTab] = useState('ingredients');
 
-    // Load user rating
+    // Adjust servings - use useMemo since this is a derived value
+    const adjustedRecipe = useMemo(() => {
+        return adjustServingSize(recipe, servings);
+    }, [recipe, servings]);
+
+    // Update rating when recipe changes (valid pattern for syncing with prop changes)
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setRating(getRecipeRating(recipe.id));
     }, [recipe.id]);
-
-    // Adjust servings
-    useEffect(() => {
-        setAdjustedRecipe(adjustServingSize(recipe, servings));
-    }, [recipe, servings]);
 
     // Handle rating change
     const handleRate = (newRating) => {

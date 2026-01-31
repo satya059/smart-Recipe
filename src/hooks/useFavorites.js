@@ -1,19 +1,13 @@
 // Custom hook for managing favorite recipes
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import {
     getFavorites,
-    toggleFavorite as toggleFav,
-    isFavorite
+    toggleFavorite as toggleFav
 } from '../services/storage';
 import { recipes } from '../data/recipes';
 
 export const useFavorites = () => {
-    const [favorites, setFavorites] = useState([]);
-
-    // Load favorites on mount
-    useEffect(() => {
-        setFavorites(getFavorites());
-    }, []);
+    const [favorites, setFavorites] = useState(() => getFavorites());
 
     // Toggle favorite status
     const toggleFavorite = useCallback((recipeId) => {

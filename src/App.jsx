@@ -16,12 +16,11 @@ function App() {
   const [currentView, setCurrentView] = useState('home');
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
-  const [ratings, setRatings] = useState({});
+  const [ratings] = useState(() => getRatings());
 
   // Initialize theme on mount
   useEffect(() => {
     initializeTheme();
-    setRatings(getRatings());
   }, []);
 
   // Custom hooks
@@ -31,12 +30,10 @@ function App() {
     stats,
     addIngredient,
     removeIngredient,
-    setIngredients,
     clearIngredients,
   } = useRecipes();
 
   const {
-    favorites,
     favoriteRecipes,
     toggleFavorite,
     isFavorite,

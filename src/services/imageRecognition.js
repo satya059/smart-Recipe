@@ -130,7 +130,7 @@ const matchLabelToIngredient = (label) => {
  * Demo mode - simulates image recognition
  * Returns random ingredients for demonstration
  */
-const analyzeImageDemo = async (image) => {
+const analyzeImageDemo = async (_image) => {
     // Simulate processing delay
     await new Promise(resolve => setTimeout(resolve, 1500));
 
